@@ -31,3 +31,4 @@ print("list of above avg:", above_avg)
 
 sorted_temp = sorted(temperatures)
 print("sorted list:",sorted_temp)
+
