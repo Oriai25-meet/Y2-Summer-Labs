@@ -1,0 +1,32 @@
+body{
+	background-color: green;
+}
+
+#title{
+	text-align: center;
+	position:relative; top:365px ;
+	font-size: 60px;
+}
+#search{
+	position:relative; left:700px; top:375px ;
+	font-size: 25px;
+
+}
+
+#button{
+	position:relative; left:700px; top:375px;
+	font-size: 25px;
+
+}
+#names{
+	text-align: center;
+	position:relative; top:365px ;
+	font-size: 20px;
+}
+
+#fur{
+	text-align: center;
+	position:relative; top:365px ;
+	font-size: 20px;
+
+}
