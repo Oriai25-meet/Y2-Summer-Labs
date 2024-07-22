@@ -11,7 +11,7 @@ firebaseConfig = {
   "messagingSenderId": "120873802287",
   "appId": "1:120873802287:web:86ecd21ee10fe0fda404da",
   "measurementId": "G-RG0VBHS94Q",
-  "databaseURL": ""}
+  "databaseURL": "https://loginin-db2f2-default-rtdb.europe-west1.firebasedatabase.app/"}
 
 app = Flask(__name__,template_folder="templates",static_folder = "static")
 app.config['SECRET_KEY'] = 'super-secret-key'
@@ -20,6 +20,7 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 
 auth = firebase.auth()
 
+db =firebase.database()
 
 
 @app.route("/", methods=["GET","POST"])
@@ -30,8 +31,13 @@ def signup():
 		try:
 			email = request.form['email']
 			password = request.form['password']
+			full_name = request.form['full_name']
+			username = request.form['username']
+			user = {"full_name":full_name,"email":email,"username":username}
 			login_session['user'] = auth.create_user_with_email_and_password(email, password)
 			login_session["quotes"] = []
+			user_id = login_session['user']['localId']
+			db.child("users").child(user_id).set(user)
 			return redirect(url_for('home'))
 		except:
 			error = "something went wrong, email in used"
@@ -69,8 +75,11 @@ def home():
 		return render_template("home.html") 
 	else:
 		message = request.form['message']
-		login_session['quotes'].append(message)
-		login_session.modified = True
+		# login_session['quotes'].append(message)
+		# login_session.modified = True
+		user_id = login_session['user']['localId']
+		quote = {"text":message,'said_by':request.form['name'],"user_id":user_id}
+		db.child("quotes").push(quote)
 		return redirect(url_for('thanks'))
 
 @app.route("/signout", methods=["POST","GET"])
@@ -85,7 +94,7 @@ def thanks():
 
 @app.route("/display")
 def display():
-	list_message = login_session['quotes']
+	list_message = db.child("quotes").get().val()
 	return render_template("display.html",list_message=list_message) 
 
 if __name__ == '__main__':

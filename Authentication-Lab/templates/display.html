@@ -3,8 +3,8 @@
 <body>
 	
 	<ul>
-		{% for i in list_message %}
-		<li>{{i}}</li>
+		{% for i in list_message.values() %}
+		<li>the name: {{ i["said_by"] }}, the quote: {{ i["text"] }}</li>
 		{% endfor %}
 	</ul>
 		<a  href = "/home"> come back to home
