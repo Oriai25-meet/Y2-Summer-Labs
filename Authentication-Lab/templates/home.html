@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 
   <body>
-    <h1 style="color: white;">Hi! Facebook is totally normal haha.</h1>
+    <h1 style="color: white;">home page</h1>
     <form action="/signout" method="POST" style="max-width:500px;margin:auto">
       <button type="submit" class="btn">Sign out</button>
     </form>
 
     <form action = "/home" method="POST" style="max-width:500px;margin:auto">
-      <input type="text" name="message">
+      <input class='input-container' type="text" name="message">
       <button type="submit" class="btn">submit</button>
     </form>
 </body>

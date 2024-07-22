@@ -27,21 +27,39 @@ def signup():
 	if request.method =="GET":
 		return render_template("signup.html") 
 	else:
-		email = request.form['email']
-		password = request.form['password']
-		login_session['user'] = auth.create_user_with_email_and_password(email, password)
-		login_session["quotes"] = []
-		return redirect(url_for('home'))
+		try:
+			email = request.form['email']
+			password = request.form['password']
+			login_session['user'] = auth.create_user_with_email_and_password(email, password)
+			login_session["quotes"] = []
+			return redirect(url_for('home'))
+		except:
+			error = "something went wrong, email in used"
+			login_session['error']= error
+			return redirect(url_for('error'))
+
+@app.route("/error")
+def error():
+	error_massege = login_session['error']
+	return render_template('error.html',error_massege = error_massege)
+
+
+
 
 @app.route("/signin",methods=["GET","POST"])
 def signin():
 	if request.method=="POST":
-		email = request.form['email']
-		password = request.form['password']
-		login_session['user'] = auth.sign_in_with_email_and_password(email, password)
-		if "quotes" not in login_session:
-			login_session["quotes"] = []
-		return redirect(url_for('home'))
+		try:
+			email = request.form['email']
+			password = request.form['password']
+			login_session['user'] = auth.sign_in_with_email_and_password(email, password)
+			if "quotes" not in login_session:
+				login_session["quotes"] = []
+			return redirect(url_for('home'))
+		except:
+			error = "something went wrong, password incorrect"
+			login_session['error']= error
+			return redirect(url_for('error'))
 	else:
 		return render_template("signin.html") 
 
