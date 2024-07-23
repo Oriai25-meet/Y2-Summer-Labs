@@ -12,7 +12,7 @@ firebaseConfig = {
   'measurementId': "G-Z8HDH5436F",
   "databaseURL":"https://gallery-6067f-default-rtdb.europe-west1.firebasedatabase.app/"}
 
-app = Flask(__name__,template_folder="templates",static_folder = "static")
+app = Flask(__name__,template_folder="tamplates",static_folder = "static")
 app.config['SECRET_KEY'] = 'super-secret-key'
 
 firebase = pyrebase.initialize_app(firebaseConfig)
@@ -27,18 +27,17 @@ def signup():
 		email = request.form['email']
 		password = request.form['password']
 		full_name = request.form['full_name']
-		fav_img = request.form['fav_img']
-		user = {"full_name":full_name,"email":email,"fav_img":fav_img}
+		fav_img  = request.form['fav_img']
 		login_session['user'] = auth.create_user_with_email_and_password(email, password)
 		user_id = login_session['user']['localId']
+		user = {'full_name':full_name, 'fav_img': fav_img}
 		db.child("users").child(user_id).set(user)
 		return redirect(url_for('home'))
 
 
-@app.route("signin",methods = ["GEY,POST"])
+@app.route("/signin",methods = ["GET","POST"])
 def signin():
 	if request.method=="POST":
-		
 		email = request.form['email']
 		password = request.form['password']
 		login_session['user'] = auth.sign_in_with_email_and_password(email, password)
@@ -48,7 +47,15 @@ def signin():
 		return render_template("signin.html")
 
 
- 
+@app.route("/home",methods=["GET","POST"])
+def home():
+	if request.method=="GET":
+		return render_template("home.html") 
+	else:
+		user_id = login_session['user']['localId']
+		gallery = {"img":request.form['img'],"category":request.form['category']}
+		db.child("user_id").push(gallery)
+		return redirect(url_for('thanks'))
 
 
 if __name__ == '__main__':
