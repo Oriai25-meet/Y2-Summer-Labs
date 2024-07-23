@@ -57,6 +57,10 @@ def home():
 		db.child("user_id").push(gallery)
 		return redirect(url_for('thanks'))
 
+@app.route("/thanks")
+def thanks():
+	return render_template("thanks.html") 
+
 
 if __name__ == '__main__':
     app.run(debug=True)
