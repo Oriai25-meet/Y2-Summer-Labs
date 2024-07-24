@@ -22,7 +22,7 @@ db =firebase.database()
 @app.route("/", methods=["GET","POST"])
 def signup():
 	if request.method =="GET":
-		return render_template("signup.html") 
+		return render_template("signup2.html") 
 	else:
 		email = request.form['email']
 		password = request.form['password']
@@ -68,9 +68,8 @@ def gallery():
 	user_id = login_session['user']['localId']
 	category = login_session['category']
 	#cat = db.child('category').child(user_id).child(category).get().val()
-	galerry = db.child('category').child(user_id).get().val()
-	print(gallery)
-	return render_template("gallery.html",pictures=gallery)
+	gallery1 = db.child('category').child(user_id).get().val()
+	return render_template("gallery.html",pictures=gallery1)
 
 
 
