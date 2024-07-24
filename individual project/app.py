@@ -44,7 +44,7 @@ def signin():
 		return redirect(url_for('home'))
 	
 	else:
-		return render_template("signin.html")
+		return render_template("signin2.html")
 
 
 @app.route("/home",methods=["GET","POST"])
@@ -53,13 +53,26 @@ def home():
 		return render_template("home.html") 
 	else:
 		user_id = login_session['user']['localId']
-		gallery = {"img":request.form['img'],"category":request.form['category']}
-		db.child("user_id").push(gallery)
+		image = request.form['img']
+		category = request.form['category']
+		login_session['category'] = category
+		db.child('category').child(user_id).child(category).push(image)
 		return redirect(url_for('thanks'))
 
 @app.route("/thanks")
 def thanks():
-	return render_template("thanks.html") 
+	return render_template("thanks.html")
+
+@app.route("/gallery", methods = ["GET","POST"])
+def gallery():
+	user_id = login_session['user']['localId']
+	category = login_session['category']
+	#cat = db.child('category').child(user_id).child(category).get().val()
+	galerry = db.child('category').child(user_id).get().val()
+	print(gallery)
+	return render_template("gallery.html",pictures=gallery)
+
+
 
 
 if __name__ == '__main__':
