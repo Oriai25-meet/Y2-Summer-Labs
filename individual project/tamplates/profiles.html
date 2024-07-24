@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <ul>
+    
+    {% for dic in profile.values() %}
+      {% for name,val in dic.items() %}
+        {% if name == 'a' %}
+          <h2> {{val}} </h2>
+        {% endif %}
+        {% if name == 'b' %}
+          <img src="{{val}}" width="100" height="100">
+        {% endif %}
+       {% endfor %} 
+    {% endfor %}
+    
+  </ul>
+  <center>
+  <a  href = "/home"> return to home </a>
+  <br>
+  <a  href = "/gallery"> return to gallery </a>
+  </center>
+</body>
+</html>

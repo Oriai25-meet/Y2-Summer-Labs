@@ -30,7 +30,7 @@ def signup():
 		fav_img  = request.form['fav_img']
 		login_session['user'] = auth.create_user_with_email_and_password(email, password)
 		user_id = login_session['user']['localId']
-		user = {'full_name':full_name, 'fav_img': fav_img}
+		user = {'a':full_name, 'b': fav_img}
 		db.child("users").child(user_id).set(user)
 		return redirect(url_for('home'))
 
@@ -70,12 +70,19 @@ def gallery():
 	#cat = db.child('category').child(user_id).child(category).get().val()
 	gallery1 = db.child('category').child(user_id).get().val()
 	return render_template("gallery.html",pictures=gallery1)
+	if request.method == "POST":
+			return redirect(url_for('profiles'))
 
 @app.route("/signout", methods=["POST","GET"])
 def signout():
 	if request.method == "POST":
 		return redirect(url_for('signin'))
 
+@app.route('/profiles',methods=["POST","GET"])
+def profiles():
+	profile = db.child("users").get().val()
+	print("profile:",profile)
+	return render_template("profiles.html", profile = profile)
 
 
 if __name__ == '__main__':
