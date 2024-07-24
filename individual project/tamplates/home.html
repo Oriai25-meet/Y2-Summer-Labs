@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html>
-
-<center>
-<body>
-    <h1 style="color: black;">home page</h1>
-
-    <form action = "/home" method="POST" style="max-width:500px;margin:auto">
-      <input class='input-container' type="text" placeholder="category" name="category">
-      <input class='input-container' type="text" placeholder="image" name="img">
-      <button type="submit" class="btn">submit</button>
-    </form>
-    <form action="/signout" method="POST" style="max-width:500px;margin:auto">
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Login Form | CodingLab</title> 
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>home</span></div>
+        <form action="/home" method="POST">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="category" name = 'category'required>
+          </div>
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="image" name = 'img'required>
+          </div>
+          <div class="row button">
+            <input type="submit" value="submit">
+          </div>
+        </form>
+        <form action="/signout" method="POST" style="max-width:500px;margin:auto">
       <button type="submit" class="btn">Sign out</button>
     </form>
-
-    
-</body>
-</center>
+      </div>
+    </div>
+  </body>
 </html>

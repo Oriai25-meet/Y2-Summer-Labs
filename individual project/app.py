@@ -81,8 +81,7 @@ def signout():
 @app.route('/profiles',methods=["POST","GET"])
 def profiles():
 	profile = db.child("users").get().val()
-	print("profile:",profile)
-	return render_template("profiles.html", profile = profile)
+	return render_template("profiles2.html", profile = profile)
 
 
 if __name__ == '__main__':
