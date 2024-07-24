@@ -71,6 +71,10 @@ def gallery():
 	gallery1 = db.child('category').child(user_id).get().val()
 	return render_template("gallery.html",pictures=gallery1)
 
+@app.route("/signout", methods=["POST","GET"])
+def signout():
+	if request.method == "POST":
+		return redirect(url_for('signin'))
 
 
 
