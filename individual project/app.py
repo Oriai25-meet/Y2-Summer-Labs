@@ -75,7 +75,7 @@ def gallery():
 
 @app.route("/signout", methods=["POST","GET"])
 def signout():
-	if request.method == "POST":
+	if request.method == "GET":
 		return redirect(url_for('signin'))
 
 @app.route('/profiles',methods=["POST","GET"])
